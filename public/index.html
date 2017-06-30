@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="mainCtrl">
+<head>
+	<meta charset="utf-8">
+	<title>Saudi Deals - Admin</title>
+	<!-- <link rel="stylesheet" href="/css/bootstrap.min.css"> -->
+	<link rel="stylesheet" href="bower_components/angular-notify/dist/angular-notify.min.css">
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" href="bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="bower_components/angular/angular.min.js" charset="utf-8"></script>
+
+	<script src="bower_components/jquery/dist/jquery.js" charset="utf-8"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.js" charset="utf-8"></script>
+
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js" charset="utf-8"></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js" charset="utf-8"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js" charset="utf-8"></script>
+	<script src="bower_components/firebase/firebase.js" charset="utf-8"></script>
+	<script src="bower_components/angularfire/dist/angularfire.min.js" charset="utf-8"></script>
+	<script src="bower_components/angular-notify/dist/angular-notify.min.js" charset="utf-8"></script>
+	<script src="bower_components/ngstorage/ngStorage.min.js" charset="utf-8"></script>
+	<script src="bower_components/moment/min/moment.min.js" charset="utf-8"></script>
+	<script src="bower_components/moment/moment.js" charset="utf-8"></script>
+	<!-- <script src="bower_components/angular-moment/angular-moment.js" charset="utf-8"></script> -->
+	<script src="bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js" charset="utf-8"></script>
+	<script src="bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js" charset="utf-8"></script>
+	<script src="bower_components/ng-file-upload/ng-file-upload.min.js" charset="utf-8"></script>
+</head>
+<body>
+	<nav class="navbar navbar-default custNav">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<!-- <a class="navbar-brand" ui-sref="dashboard" ui-sref-active="active">Saudi Deals</a> -->
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav cust-navbar-nav navbar-right" ng-if="isUserLoggedIn">
+					<!-- <li><a  ui-sref="login" ui-sref-active="active" ng-if="!isUserLoggedIn">Login</a></li> -->
+					<!-- <li><a  ui-sref="dashboard" ui-sref-active="active" ng-if="isUserLoggedIn">Dashboard</a></li> -->
+					<!-- <li><a href="#!/users">Users</a></li>
+					<li><a href="#!/inapp_offer" >Inapp Offers</a></li>
+					<li><a href="#!/gift_offer">Gift Offers</a></li>
+					<li><a href="#!/report">Report</a></li>
+					<li><a href="javascript:void(0);" ng-click="logoutUser();">Logout</a></li> -->
+
+					<li><a ng-class="getMenuClass('/users')" href="#!/users">Users</a></li>
+					<li><a ng-class="getMenuClass('/inapp_offer')" href="#!/inapp_offer" >Inapp Offers</a></li>
+					<li><a ng-class="getMenuClass('/gift_offer')" href="#!/gift_offer">Gift Offers</a></li>
+					<li><a  ng-class="getMenuClass('/report')" href="#!/report">Report</a></li>
+					<li><a  ng-class="getMenuClass('/rooms')" href="#!/rooms">Rooms</a></li>
+					<li><a href="javascript:void(0);" ng-click="logoutUser();">Logout</a></li>
+					<!-- <li class="dropdown" uib-dropdown >
+						<a href="#" class="dropdown-toggle" uib-dropdown-toggle data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+						<ul class="dropdown-menu" uib-dropdown-menu>
+							<li><a href="#!/users">Users</a></li>
+							<li><a href="#!/inapp_offer">Inapp Offers</a></li>
+							<li><a href="#!/report">Report</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="javascript:void(0);" ng-click="logoutUser();">Logout</a></li>
+						</ul>
+					</li> -->
+				</ul>
+			</div><!-- /.navbar-collapse -->
+		</div><!-- /.container-fluid -->
+	</nav>
+	<section class="pad-t-30">
+		<div class="container">
+			<ui-view></ui-view>
+		</div>
+	</section>
+	<!-- Custom JS -->
+	<script src="js/app.js" charset="utf-8"></script>
+	<script src="js/services/auth.service.js" charset="utf-8"></script>
+	<script src="js/services/localStorage.service.js" charset="utf-8"></script>
+	<script src="js/controllers/auth.controller.js" charset="utf-8"></script>
+	<script src="js/controllers/dashboard.controller.js" charset="utf-8"></script>
+	<script src="js/controllers/main.controller.js" charset="utf-8"></script>
+	<script src="js/controllers/users.controller.js" charset="utf-8"></script>
+	<script src="js/controllers/userDetails.controller.js" charset="utf-8"></script>
+	<script src="js/controllers/inappOffer.controller.js" charset="utf-8"></script>
+	<script src="js/controllers/giftOffer.controller.js" charset="utf-8"></script>
+	<script src="js/controllers/editInappOffer.controller.js" charset="utf-8"></script>
+	<script src="js/controllers/editGiftOffer.controller.js" charset="utf-8"></script>
+	<script src="js/controllers/report.controller.js" charset="utf-8"></script>
+	<script src="js/controllers/rooms.controller.js" charset="utf-8"></script>
+
+</body>
+</html>

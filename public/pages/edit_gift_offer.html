@@ -1,0 +1,37 @@
+<div class="modal-header">
+	<h3 class="modal-title heading" id="modal-title">Edit Gift Offer</h3>
+</div>
+<div class="modal-body" id="modal-body">
+	<form name="editForm" id="editForm">
+		<div class="form-group">
+			<label for="exampleInputEmail1">Name</label>
+			<input type="text" class="form-control" id="coinValue" name="coinValue" ng-model="giftOfferDetail.name"  placeholder="Coin Value" required>
+		</div>
+		<!-- <div class="form-group">
+			<label for="exampleInputEmail1">Message</label>
+			<input type="text" class="form-control" id="cost" name="cost" ng-model="giftOfferDetail.message"  placeholder="Cost" required>
+		</div> -->
+		<div class="form-group">
+			<label for="exampleInputEmail1">Coin</label>
+			<input type="number" class="form-control" id="extraCoinPercentage"  name="extraCoinPercentage" ng-model="giftOfferDetail.coin"  placeholder="Extra Coin Percentage" required>
+		</div>
+		<div class="form-group">
+			<label for="exampleInputPassword1">Gift Start Date</label>
+			<input type="text" class="form-control" ng-click="open1()" uib-datepicker-popup="{{format}}" ng-model="giftOfferDetail.startDate" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" required/>
+		</div>
+		<div class="dropdown form-group">
+			<label for="exampleInputPassword1">Gift End Date</label>
+			<input type="text" class="form-control" ng-click="open2()" uib-datepicker-popup="{{format}}" ng-model="giftOfferDetail.endDate" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" required/>
+		</div>
+		<!-- <div class="dropdown form-group">
+			<label for="exampleInputPassword1">Upload Image</label>
+			<input type="file" ngf-select ng-model="picFile" name="file"
+			accept="image/*" ngf-max-size="2MB">
+		</div> -->
+	</form>
+</div>
+<div class="modal-footer">
+	<!-- <button class="btn btn-primary" type="button" ng-click="ok(picFile)" ng-disabled="isButtonBusy">OK</button> -->
+	<button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="isButtonBusy || editForm.$invalid">OK</button>
+	<button class="btn btn-warning" type="button" ng-click="cancel()" ng-disabled="isButtonBusy">Cancel</button>
+</div>

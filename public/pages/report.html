@@ -1,0 +1,42 @@
+<div class="whiteDiv">
+<div class="innerlogo"><img src="images/saudiDeal-logo.jpg" /></div>
+	<h2>Report</h2>
+	<div class="bs-example table-responsive" data-example-id="bordered-table">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Catagory Name</th>
+					<th>Played</th>
+				</tr>
+			</thead>
+			<tbody ng-if="!loader">
+				<tr>
+					<th scope="row">1</th>
+					<td>1 on 1</td>
+					<td>{{gameSetLists.Cat1.totalPlayed}}</td>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>1 on 2</td>
+					<td>{{gameSetLists.Cat2.totalPlayed}}</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td>1 on 3</td>
+					<td>{{gameSetLists.Cat3.totalPlayed}}</td>
+				</tr>
+				<tr>
+					<th scope="row">4</th>
+					<td>1 on 4</td>
+					<td>{{gameSetLists.Cat4.totalPlayed}}</td>
+				</tr>
+			</tbody>
+			<tbody ng-if="loader">
+				<tr>
+					<td colspan="3" align="center"><img src="images/loader.gif"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

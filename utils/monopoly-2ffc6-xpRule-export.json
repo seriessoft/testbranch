@@ -1,0 +1,163 @@
+[ null, {
+  "coinReward" : 0,
+  "totalXpRequired" : 0,
+  "xpRequiredFroNextLvl" : 0
+}, {
+  "coinReward" : 30,
+  "totalXpRequired" : 3,
+  "xpRequiredFroNextLvl" : 3
+}, {
+  "coinReward" : 30,
+  "totalXpRequired" : 7,
+  "xpRequiredFroNextLvl" : 4
+}, {
+  "coinReward" : 30,
+  "totalXpRequired" : 13,
+  "xpRequiredFroNextLvl" : 6
+}, {
+  "coinReward" : 30,
+  "totalXpRequired" : 21,
+  "xpRequiredFroNextLvl" : 8
+}, {
+  "coinReward" : 100,
+  "totalXpRequired" : 33,
+  "xpRequiredFroNextLvl" : 12
+}, {
+  "coinReward" : 100,
+  "totalXpRequired" : 49,
+  "xpRequiredFroNextLvl" : 16
+}, {
+  "coinReward" : 100,
+  "totalXpRequired" : 72,
+  "xpRequiredFroNextLvl" : 23
+}, {
+  "coinReward" : 100,
+  "totalXpRequired" : 104,
+  "xpRequiredFroNextLvl" : 32
+}, {
+  "coinReward" : 100,
+  "totalXpRequired" : 148,
+  "xpRequiredFroNextLvl" : 44
+}, {
+  "coinReward" : 200,
+  "totalXpRequired" : 210,
+  "xpRequiredFroNextLvl" : 62
+}, {
+  "coinReward" : 200,
+  "totalXpRequired" : 297,
+  "xpRequiredFroNextLvl" : 87
+}, {
+  "totalXpRequired" : 418,
+  "xpRequiredFroNextLvl" : 121
+}, {
+  "totalXpRequired" : 588,
+  "xpRequiredFroNextLvl" : 170
+}, {
+  "totalXpRequired" : 826,
+  "xpRequiredFroNextLvl" : 238
+}, {
+  "totalXpRequired" : 1159,
+  "xpRequiredFroNextLvl" : 333
+}, {
+  "totalXpRequired" : 1626,
+  "xpRequiredFroNextLvl" : 467
+}, {
+  "totalXpRequired" : 2279,
+  "xpRequiredFroNextLvl" : 653
+}, {
+  "totalXpRequired" : 3194,
+  "xpRequiredFroNextLvl" : 915
+}, {
+  "totalXpRequired" : 4475,
+  "xpRequiredFroNextLvl" : 1281
+}, {
+  "totalXpRequired" : 6268,
+  "xpRequiredFroNextLvl" : 1793
+}, {
+  "totalXpRequired" : 8778,
+  "xpRequiredFroNextLvl" : 2510
+}, {
+  "totalXpRequired" : 12292,
+  "xpRequiredFroNextLvl" : 3514
+}, {
+  "totalXpRequired" : 17212,
+  "xpRequiredFroNextLvl" : 4920
+}, {
+  "totalXpRequired" : 24100,
+  "xpRequiredFroNextLvl" : 6888
+}, {
+  "totalXpRequired" : 33743,
+  "xpRequiredFroNextLvl" : 9643
+}, {
+  "totalXpRequired" : 47243,
+  "xpRequiredFroNextLvl" : 13500
+}, {
+  "totalXpRequired" : 66142,
+  "xpRequiredFroNextLvl" : 18899
+}, {
+  "totalXpRequired" : 92601,
+  "xpRequiredFroNextLvl" : 26459
+}, {
+  "totalXpRequired" : 129644,
+  "xpRequiredFroNextLvl" : 37043
+}, {
+  "totalXpRequired" : 181504,
+  "xpRequiredFroNextLvl" : 51860
+}, {
+  "totalXpRequired" : 254108,
+  "xpRequiredFroNextLvl" : 72604
+}, {
+  "totalXpRequired" : 355754,
+  "xpRequiredFroNextLvl" : 101646
+}, {
+  "totalXpRequired" : 498058,
+  "xpRequiredFroNextLvl" : 142304
+}, {
+  "totalXpRequired" : 697284,
+  "xpRequiredFroNextLvl" : 199226
+}, {
+  "totalXpRequired" : 976201,
+  "xpRequiredFroNextLvl" : 278917
+}, {
+  "totalXpRequired" : 1366684,
+  "xpRequiredFroNextLvl" : 390483
+}, {
+  "totalXpRequired" : 1913361,
+  "xpRequiredFroNextLvl" : 546677
+}, {
+  "totalXpRequired" : 2678708,
+  "xpRequiredFroNextLvl" : 765347
+}, {
+  "totalXpRequired" : 3750194,
+  "xpRequiredFroNextLvl" : 1071486
+}, {
+  "totalXpRequired" : 5250275,
+  "xpRequiredFroNextLvl" : 1500081
+}, {
+  "totalXpRequired" : 7350388,
+  "xpRequiredFroNextLvl" : 2100113
+}, {
+  "totalXpRequired" : 10290546,
+  "xpRequiredFroNextLvl" : 2940158
+}, {
+  "totalXpRequired" : 14406768,
+  "xpRequiredFroNextLvl" : 4116222
+}, {
+  "totalXpRequired" : 20169478,
+  "xpRequiredFroNextLvl" : 5762710
+}, {
+  "totalXpRequired" : 28237272,
+  "xpRequiredFroNextLvl" : 8067794
+}, {
+  "totalXpRequired" : 39532184,
+  "xpRequiredFroNextLvl" : 11294912
+}, {
+  "totalXpRequired" : 55345061,
+  "xpRequiredFroNextLvl" : 15812877
+}, {
+  "totalXpRequired" : 77483089,
+  "xpRequiredFroNextLvl" : 22138028
+}, {
+  "totalXpRequired" : 108476328,
+  "xpRequiredFroNextLvl" : 30993239
+} ]

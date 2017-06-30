@@ -1,0 +1,61 @@
+<div class="whiteDiv">
+<div class="innerlogo"><img src="images/saudiDeal-logo.jpg" /></div>
+	<h2 class="clearfix"><span class="marg-t-7">Users</span>
+		<div class="pull-right">
+			<form class="userSearch">
+				<input type="text" ng-model="search.name" class="custInput">
+				<img src="images/loader.gif" ng-if="isButtonBusy">
+				<button type="submit" ng-click="searchData();" class="btn btn-primary" ng-disabled="isButtonBusy || !search.name">
+					Search
+				</button>
+				<button type="button" ng-click="resetSearchData();" class="btn btn-primary" ng-disabled="isButtonBusy">
+					Reset
+				</button>
+			</form>
+		</div>
+	</h2>
+	<div class="bs-example table-responsive" data-example-id="bordered-table" ng-if="pageModel.viewListModel">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>User Type</th>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Facebook Id</th>
+					<th>Coin</th>
+					<th>Xp</th>
+					<th>Label</th>
+					<th>Created date</th>
+					<th class="text-center">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="(key,user) in users | filter:searchText">
+					<th scope="row">{{$index+1}}</th>
+					<td></td>
+					<td>{{user.name}}</td>
+					<td>{{user.email}}</td>
+					<td>{{user.facebookId}}</td>
+					<td>{{user.coin}}</td>
+					<td>{{user.xp}}</td>
+					<td>{{user.label}}</td>
+					<td>{{user.created | date}}</td>
+					<td class="text-center" ng-init="funTest(key)">
+						<button type="button" class="btn btn-primary" ng-click="userDetails(user.key);">View</button>
+					</td>
+				</tr>
+				<tr ng-if="!users">
+					<td colspan="10" align="center"><img src="images/loader.gif"></td>
+				</tr>
+				<tr ng-if="users.length <=0">
+					<td colspan="10" align="center">No user found</td>
+				</tr>
+				<!-- <tr>
+					<td colspan="5" align="left"><button type="button" ng-if="preButtonHide" ng-disabled="isButtonBusy" class="btn btn-primary" ng-click="pre(value)">Pre</button></td>
+					<td colspan="5" align="right"><button type="button" ng-if="nextButtonHide" ng-disabled="isButtonBusy" class="btn btn-primary" ng-click="next(value)">Next</button></td>
+				</tr> -->
+			</tbody>
+		</table>
+	</div>
+</div>

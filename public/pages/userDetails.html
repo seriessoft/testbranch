@@ -1,0 +1,74 @@
+<div class="modal-header">
+	<h2 class="modal-title heading" id="modal-title">User Details</h2>
+</div>
+<div class="modal-body" id="modal-body">
+	<uib-tabset active="activeJustified" justified="true">
+	    <uib-tab index="0" heading="Game Played and Winned">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Catagory Name</th>
+						<th>Played</th>
+						<th>Winned</th>
+					</tr>
+				</thead>
+				<tbody ng-repeat="(key,set) in userSet" ng-init="value = isValueObJect(set);" ng-if="userSet">
+					<tr ng-if="value">
+						<th scope="row">{{$index+1}}</th>
+						<td>
+							<span ng-if="key==='C1'">1 on 1</span>
+							<span ng-if="key==='C2'">1 on 2</span>
+							<span ng-if="key==='C3'">1 on 3</span>
+							<span ng-if="key==='C4'">1 on 4</span>
+						</td>
+						<td>{{set.totalPlayed}}</td>
+						<td>{{set.totalWin}}</td>
+					</tr>
+				</tbody>
+				<tbody ng-if="userSet.length === 0">
+					<tr>
+						<td scope="row" colspan="4" align="center">No data found</td>
+					</tr>
+				</tbody>
+				<tbody ng-if="!userSet">
+					<tr>
+						<td scope="row" colspan="4" align="center"><img src="images/loader.gif" style="height:50px; width:50px;"></td>
+					</tr>
+				</tbody>
+			</table>
+		</uib-tab>
+	    <uib-tab index="1" heading="Coins Spend">
+			<table class="table table-bordered">
+				<tbody>
+					<tr>
+						<td>Total Coin Spend</td>
+						<td>{{userSet.totalCost || 0}}</td>
+					</tr>
+					<tr>
+						<td>Total Played</td>
+						<td>{{userSet.totalPlayed || 0}}</td>
+					</tr>
+					<tr>
+						<td>Total Winned</td>
+						<td>{{userSet.totalWin || 0}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</uib-tab>
+	    <uib-tab index="2" heading="Coins bought">
+			<table class="table table-bordered">
+				<tbody>
+					<tr>
+						<td>Purchased Coins</td>
+						<td>{{users.purchaseCoin}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</uib-tab>
+	</uib-tabset>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" type="button" ng-click="cancel()">OK</button>
+	<!-- <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button> -->
+</div>

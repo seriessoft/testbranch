@@ -1,0 +1,42 @@
+<div class="whiteDiv">
+<div class="innerlogo"><img src="images/saudiDeal-logo.jpg" /></div>
+	<h2 class="clearfix"><span class="marg-t-7">Rooms</span>
+	</h2>
+	<div class="bs-example table-responsive" data-example-id="bordered-table">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>User Name</th>
+					<th>Room Id</th>
+					<th>Created Date</th>
+					<th class="text-center">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="(key,room) in rooms">
+					<th scope="row">{{$index+1}}</th>
+					<td><span ng-repeat="user in room.users">{{user.name}}</br></span></td>
+					<td>{{key}}</td>
+					<td>{{room.createdDate | date}}</td>
+					<td class="text-center" ng-init="funTest(key)">
+						<button type="button" class="btn btn-primary" ng-disabled="isButtonBusy" ng-click="deleteRoom(key);">Delete</button>
+					</td>
+				</tr>
+				<tr ng-if="!rooms">
+					<td colspan="5" align="center"><img src="images/loader.gif"></td>
+				</tr>
+				<tr ng-if="rooms.length <=0">
+					<td colspan="5" align="center">No user found</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="left"><button type="button" ng-if="preButtonHide" ng-disabled="isButtonBusy" class="btn btn-primary" ng-click="pre(value)">Pre</button></td>
+					<td colspan="3" align="right"><button type="button" ng-if="nextButtonHide" ng-disabled="isButtonBusy" class="btn btn-primary" ng-click="next(value)">Next</button></td>
+				</tr>
+				<tr>
+					<td colspan="5" align="right"><button type="button" ng-disabled="isButtonBusy" class="btn btn-primary" ng-click="deleteAll()">Delete All</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

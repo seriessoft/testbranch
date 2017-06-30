@@ -1,0 +1,112 @@
+body, html{
+	background:url("../images/mainBg.png") center top no-repeat #0955a9;
+	background-size:cover;
+}
+img{
+	max-width: 100%;
+	height: auto;
+}
+.marg-t-7{margin-top: 7px;}
+.pad-t-30{padding-top: 30px;}
+.whiteDivLogin{
+	background:#fff;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	padding:75px 0px 35px 0px;
+	position: relative;
+	margin-top:55%;
+}
+.whiteDivLogin form{
+	width: 85%;
+	margin: 0 auto;
+}
+.logo{
+	width:150px;
+	height:150px;
+	border-radius: 100px;
+	-moz-border-radius: 100px;
+	-webkit-border-radius: 100px;
+	border:3px solid #fff;
+	margin: 0 auto;
+	overflow: hidden;
+	position: absolute;
+	top: -32%;
+	left: 50%;
+	margin-left: -75px;
+}
+.innerlogo{
+	width:150px;
+	height:150px;
+	border-radius: 100px;
+	-moz-border-radius: 100px;
+	-webkit-border-radius: 100px;
+	border:3px solid #fff;
+	margin: 0 auto;
+	overflow: hidden;
+	position: absolute;
+	top: -45px;
+	left: 50%;
+	margin-left: -75px;
+}
+.custNav{background:transparent; border-color:transparent !important;}
+.navbar-default .cust-navbar-nav > li{margin: 10px;}
+.navbar-default .cust-navbar-nav > li > a{color: #fff; padding:5px 10px 8px;}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus,.navbar-default .navbar-nav > li  > a.active{background:#47a92f;  color: #fff; border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px;}
+.navbar-default .navbar-collapse, .navbar-default .navbar-form{box-shadow: none; border-color: transparent; margin:0 1em;}
+.custInput{border: 1px solid #b3b3b3;
+    border-radius: 3px;
+    box-shadow: none;
+    padding: 5px;}
+.custNav > li > a:hover{color: #red !important;}
+.navbar-toggle{background-color: #fff; border-color: #fff;}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus{background: #47a92f; border-color: #47a92f;}
+.navbar-default .navbar-toggle:hover .icon-bar, .navbar-default .navbar-toggle:focus .icon-bar{background: white}
+.whiteDiv{
+	background:#fff;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	padding:15px;
+	margin-top:5%;
+}
+.whiteDiv h2, .heading{
+	font-weight: bold;
+	font-size: 16px;
+	text-transform: uppercase;
+}
+.whiteDiv h2 span{margin-top: 7px; display: inline-block;}
+.loginBtn{padding:10px 15px !important;}
+.whiteDiv .btn, .btn{padding:3px 15px;}
+.container{
+	position: relative;
+}
+.whiteDiv thead{
+	background-color: #08a4eb;
+	color:#fff;
+}
+table-bordered > thead > tr > th, .table-bordered > thead > tr > th, table-bordered > tbody > tr > th, .table-bordered > tbody > tr > th, table-bordered > tfoot > tr > th, .table-bordered > tfoot > tr > th, table-bordered > thead > tr > td, .table-bordered > thead > tr > td, table-bordered > tbody > tr > td, .table-bordered > tbody > tr > td, table-bordered > tfoot > tr > td, .table-bordered > tfoot > tr > td{
+	border:1px solid #a2e2ff;
+}
+@media (max-width:991px){
+.whiteDiv{
+	margin-top:20%;
+}
+}
+@media (max-width:767px){
+	.whiteDivLogin{
+	margin-top:25%;
+}
+	.cust-navbar-nav{background-color: #fff; border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px; padding: 10px;}
+	.navbar-default .cust-navbar-nav > li > a{padding:3px 5px; border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px; color: #333; margin: 5px 0;}
+	.navbar-default .cust-navbar-nav > li > a:hover{background:#47a92f; padding:3px 5px; color: #fff;}
+	.whiteDiv{
+	margin-top:12%;
+}
+}
+
+@media (max-width:480px){
+.whiteDiv{
+	margin-top:25%;
+	}
+}

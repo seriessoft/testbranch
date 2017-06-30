@@ -1,0 +1,44 @@
+<div class="whiteDiv">
+<div class="innerlogo"><img src="images/saudiDeal-logo.jpg" /></div>
+	<h2 class="heading">Inapp Offer</h2>
+	<div class="bs-example table-responsive" data-example-id="bordered-table">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>In_App_product_ID</th>
+					<th>Coin Value</th>
+					<th>Cost</th>
+					<th>Start date offer</th>
+					<th>End date offer</th>
+					<th>Extra coin percentage </th>
+					<th>Status</th>
+					<th>Modefied date</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="(key,inappOfferList) in inappOfferLists">
+					<th scope="row">{{$index+1}}</th>
+					<td>{{inappOfferList.In_App_product_ID}}</td>
+					<td>{{inappOfferList.coinValue}}</td>
+					<td>{{inappOfferList.cost}}</td>
+					<td>{{inappOfferList.startOfferDate | date}}</td>
+					<td>{{inappOfferList.endOfferDate | date}}</td>
+					<td>{{inappOfferList.extraCoinPercentage}}</td>
+					<td>{{inappOfferList.statues}}</td>
+					<td>{{inappOfferList.modifiedDate}}</td>
+					<td>
+						<button type="button" class="btn btn-primary" ng-click="editInappOffer(key);">Edit</button>
+					</td>
+				</tr>
+				<tr ng-if="!inappOfferLists">
+					<td colspan="10" align="center"><img src="images/loader.gif"></td>
+				</tr>
+				<tr ng-if="inappOfferLists.length <=0">
+					<td colspan="10" align="center">No user found</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
