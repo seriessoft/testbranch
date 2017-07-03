@@ -27,6 +27,7 @@ var config = {
 };
 /*
 our firebase credential
+Hello there
 var config = {
 	apiKey: "AIzaSyBILjsq_QSbE8X-H2tiSxJxX5i1AV139nI",
     authDomain: "monopoly-2ffc6.firebaseapp.com",
