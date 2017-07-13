@@ -500,7 +500,6 @@ wsServer.on('request', function(request) {
 						var gameRef = Firebase.database().ref().child('games');
 						var subCatRef = Firebase.database().ref().child('category').child(catId).child('subCategory').child(subCatId);
 						var userCheckAccessToken = userRef.child(userId);
-						var dateTime = new Date().getTime();
 						userCheckAccessToken.once('value',function(snapshot){
 							var userDetails = snapshot.val();
 							var userAccessToken = userDetails.accessToken;
@@ -513,7 +512,6 @@ wsServer.on('request', function(request) {
 										var data={
 											'winner_id':0,
 											'cat_id':catId,
-											'createdDate':dateTime,
 											'sub_cat_id':parseInt(subCatId),
 											'play_date':new Date()
 										};
@@ -563,19 +561,15 @@ wsServer.on('request', function(request) {
 						var gameId = reqM.gameId;
 						var winningId = reqM.winningId;
 						var userId = reqM.userId;
-						var roomId = reqM.roomId;
 						var accessToken = JSON.parse(reqM.accessToken);
 						var gameRef = database.child('games').child(gameId);
 						var userRef = database.child('users').child(userId);
-						var roomRef = database.child('rooms1').child(roomId);
 						userRef.once('value',function(snapshot){
 							var userDetails = snapshot.val();
 							userRef = database.child('users').child(winningId);
 							if(userDetails.accessToken === accessToken){
 								gameRef.once('value', function(snapshot) {
 										var resultGame = snapshot.val();
-										gameRef.remove();
-										roomRef.remove();
 										if(resultGame.winner_id ===0){
 											var subCatRef = database.child('category').child(resultGame.cat_id).child('subCategory').child(resultGame.sub_cat_id);
 											subCatRef.once('value', function(snapshot) {
@@ -842,12 +836,8 @@ wsServer.on('request', function(request) {
 								}else{
 									//assign room
 									Matchmaking.assignRoom(userId,catId,subCatId,function(data){
-										if(data.error){
-											connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Insufficient coins',data:{}}));
-										}else{
-											matchMakingId = data.roomId;
-											connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Room assigned',data:data}));
-										}
+										matchMakingId = data.roomId;
+										connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Room assigned',data:data}));
 									});
 								}
 							}else{
@@ -858,7 +848,9 @@ wsServer.on('request', function(request) {
 					}else{
 						connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Please send all required fields'}));
 					}
+
 					break;
+
 				case "STOP_MATCHMAKING":
 					if(reqM.userId && reqM.roomId){
 						var userId = reqM.userId;
@@ -893,46 +885,6 @@ wsServer.on('request', function(request) {
 						connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Please send all required fields'}));
 					}
 					break;
-					case "ADD_GIFT_OFFER":
-						if(reqM.userId && reqM.accessToken){
-							var userId = reqM.userId;
-							var accessToken = JSON.parse(reqM.accessToken);
-							var rootRef = Firebase.database().ref();
-							var userRef = rootRef.child('users').child(userId);
-							userRef.once('value').then(function(snapshot){
-								var data = snapshot.val();
-								if(data.accessToken === accessToken){
-									if(data.isGiftOfferAvailable === 'true'){
-										var giftOfferRef = rootRef.child('giftOffer').child('someIds');
-										giftOfferRef.once('value').then(function(snap){
-											var giftData = snap.val();
-											var currentD = new Date().getTime();
-											var startD = new Date(giftData.startDate).getTime();
-											var endD = new Date(giftData.endDate).getTime();
-											if(currentD <= endD && currentD >= startD){
-												var coin = parseInt(data.coin) + parseInt(giftData.coin);
-												userRef.child('isGiftOfferAvailable').set("false");
-												userRef.child('coin').set(coin);
-												connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Coin add successfully'}));
-											}else{
-												connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Offer end'}));
-											}
-										}).catch(function(err){
-											connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Offer end'}));
-										});
-									}else{
-										connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'You already get the offer'}));
-									}
-								}else{
-									connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:2,msg:'Unauthanticated User!'}));
-								}
-							}).catch(function(err){
-								connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:2,msg:'Unauthanticated User!'}));
-							});
-						}else{
-							connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Please send all required fields'}));
-						}
-						break;
 				default:
 					handler.other(connection,message,function(res){
 						console.log(res.message);
