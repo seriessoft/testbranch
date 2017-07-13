@@ -509,9 +509,11 @@ wsServer.on('request', function(request) {
 									if(result){
 										var playerList = PlayerID.split(",");
 										var gamedata = {};
+										var dateTime = new Date().getTime();
 										var data={
 											'winner_id':0,
 											'cat_id':catId,
+											createdDate:dateTime,
 											'sub_cat_id':parseInt(subCatId),
 											'play_date':new Date()
 										};
@@ -885,6 +887,47 @@ wsServer.on('request', function(request) {
 						connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Please send all required fields'}));
 					}
 					break;
+					case "ADD_GIFT_OFFER":
+						if(reqM.userId && reqM.accessToken){
+							var userId = reqM.userId;
+							var accessToken = JSON.parse(reqM.accessToken);
+							var rootRef = Firebase.database().ref();
+							var userRef = rootRef.child('users').child(userId);
+							userRef.once('value').then(function(snapshot){
+								var data = snapshot.val();
+								if(data.accessToken === accessToken){
+									if(data.isGiftOfferAvailable === 'true'){
+										var giftOfferRef = rootRef.child('giftOffer').child('someIds');
+										giftOfferRef.once('value').then(function(snap){
+											var giftData = snap.val();
+											var currentD = new Date().getTime();
+											var startD = new Date(giftData.startDate).getTime();
+											var endD = new Date(giftData.endDate).getTime();
+											if(currentD <= endD && currentD >= startD){
+												var coin = parseInt(data.coin) + parseInt(giftData.coin);
+												userRef.child('isGiftOfferAvailable').set("false");
+												userRef.child('coin').set(coin);
+												connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Coin add successfully'}));
+											}else{
+												connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Offer end'}));
+											}
+										}).catch(function(err){
+											connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Offer end'}));
+										});
+									}else{
+										connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'You already get the offer'}));
+									}
+								}else{
+									connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:2,msg:'Unauthanticated User!'}));
+								}
+							}).catch(function(err){
+								connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:2,msg:'Unauthanticated User!'}));
+							});
+						}else{
+							connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Please send all required fields'}));
+						}
+						break;
+
 				default:
 					handler.other(connection,message,function(res){
 						console.log(res.message);

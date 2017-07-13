@@ -49,11 +49,13 @@ var createRoom = function(catId,subCatId,subCatData,userId,callback){
 	var roomCatRef = Firebase.database().ref().child('category').child(catId).child('subCategory').child(subCatId);
 	var availableRoomsRef = roomCatRef.child('availableRooms');
 	var maxPlayerAllowed = subCatData.max || 1;
+	var dateTime = new Date().getTime();
 	var roomData = {
 		catId:catId,
 		subCatId:subCatId,
 		max : maxPlayerAllowed,
 		started:false,
+		createdDate:dateTime,
 		roomFull:false,
 		firstUser:userId
 	};
