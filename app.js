@@ -535,9 +535,9 @@ wsServer.on('request', function(request) {
 												result1.totalPlayed = parseInt(result1.totalPlayed+1);
 												result1.xp = parseInt(result1.xp+result.loserXP);
 												userRef1.set(result1);
-												//xpCalculator.setUserXpStats(snapshot.key,function(xpStat){
+												xpCalculator.setUserXpStats(snapshot.key,function(xpStat){
 													//todo: any action that is needed when callbacked
-												//});
+												});
 												gameStats.updateUserStatForGameStart(catId,subCatId,result.fees,snapshot.key,function(){
 													//res.send({errorcode:0,msg:'Success',data:data});
 												});
