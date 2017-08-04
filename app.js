@@ -104,7 +104,7 @@ wsServer.on('request', function(request) {
 				case "VERSION_CHECK":
 					calltoken = reqM.calltoken;
 					var serverVersion = 0;
-					var clientVersion = reqM.version;
+					var clientVersion = parseInt(reqM.version);
 					var platform = reqM.platform;
 					console.log('------------------version Check--------------------');
 					console.log(reqM);
