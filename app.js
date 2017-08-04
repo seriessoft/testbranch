@@ -115,7 +115,9 @@ wsServer.on('request', function(request) {
 						}
 					}else if(platform === 'ios'){
 						serverVersion = 1.4;
+						console.log("serverVersion : " ,serverVersion);
 						if(serverVersion !== clientVersion){
+							console.log('ok');
 							connection.sendUTF(JSON.stringify({calltoken:calltoken,type:'UPDATE_APP',url:"https://itunes.apple.com/us/app/saudi-deal/id1149271778?mt=8"}));
 						}
 					}
