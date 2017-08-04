@@ -108,15 +108,16 @@ wsServer.on('request', function(request) {
 					var platform = reqM.platform;
 					console.log('------------------version Check--------------------');
 					console.log(reqM);
+					console.log("clientVersion : ", clientVersion);
 					if(platform === 'android'){
 						serverVersion = 1.0;
-						if(serverVersion !== clientVersion){
+						if(serverVersion > clientVersion){
 							connection.sendUTF(JSON.stringify({calltoken:calltoken,type:'UPDATE_APP',url:"https://play.google.com/store/apps/details?id=com.khalil.saudideal2&hl=en"}));
 						}
 					}else if(platform === 'ios'){
 						serverVersion = 1.4;
 						console.log("serverVersion : " ,serverVersion);
-						if(serverVersion !== clientVersion){
+						if(serverVersion > clientVersion){
 							console.log('ok');
 							connection.sendUTF(JSON.stringify({calltoken:calltoken,type:'UPDATE_APP',url:"https://itunes.apple.com/us/app/saudi-deal/id1149271778?mt=8"}));
 						}
