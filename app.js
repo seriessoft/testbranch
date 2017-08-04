@@ -103,12 +103,20 @@ wsServer.on('request', function(request) {
 					break;
 				case "VERSION_CHECK":
 					calltoken = reqM.calltoken;
-					var serverVersion = 1;
+					var serverVersion = 0;
 					var clientVersion = reqM.version;
-					if(serverVersion > clientVersion){
-						connection.sendUTF(JSON.stringify({calltoken:calltoken,type:'UPDATE_APP',url:"https://play.google.com/store/apps/details?id=com.khalil.saudideal&hl=en"}));
+					var platform = reqM.platform;
+					if(platform === 'android'){
+						serverVersion = 1.0;
+						if(serverVersion !== clientVersion){
+							connection.sendUTF(JSON.stringify({calltoken:calltoken,type:'UPDATE_APP',url:"https://play.google.com/store/apps/details?id=com.khalil.saudideal2&hl=en"}));
+						}
+					}else if(platform === 'ios'){
+						serverVersion = 1.4;
+						if(serverVersion !== clientVersion){
+							connection.sendUTF(JSON.stringify({calltoken:calltoken,type:'UPDATE_APP',url:"https://itunes.apple.com/us/app/saudi-deal/id1149271778?mt=8"}));
+						}
 					}
-
 					break;
 				case "USER_RECONNECT":
 					if(reqM.userId){
@@ -558,45 +566,47 @@ wsServer.on('request', function(request) {
 					}
 					break;
 				case 'GAME_END':
-					if(reqM.winningId && reqM.gameId && reqM.userId && reqM.accessToken){
+					if(reqM.winningId && reqM.gameId && reqM.userId && reqM.accessToken && reqM.roomId){
 						var database = Firebase.database().ref();
 						var gameId = reqM.gameId;
 						var winningId = reqM.winningId;
 						var userId = reqM.userId;
+						var roomId = reqM.roomId;
 						var accessToken = JSON.parse(reqM.accessToken);
 						var gameRef = database.child('games').child(gameId);
 						var userRef = database.child('users').child(userId);
+						var roomRef = database.child('rooms1').child(roomId);
 						userRef.once('value',function(snapshot){
 							var userDetails = snapshot.val();
 							userRef = database.child('users').child(winningId);
 							if(userDetails.accessToken === accessToken){
 								gameRef.once('value', function(snapshot) {
-										var resultGame = snapshot.val();
-										if(resultGame.winner_id ===0){
-											var subCatRef = database.child('category').child(resultGame.cat_id).child('subCategory').child(resultGame.sub_cat_id);
-											subCatRef.once('value', function(snapshot) {
-													resultSubCat = snapshot.val();
-													userRef.once('value', function(snapshot) {
-															resultUser = snapshot.val();
-															resultUser.coin = parseInt(resultUser.coin+resultSubCat.winningCoin);
-															resultUser.totalWin = parseInt(resultUser.totalWin+1);
-															resultUser.xp = parseInt(resultUser.xp+resultSubCat.winnerXP-resultSubCat.loserXP);
-															if(userRef.set(resultUser)){
-																resultGame.winner_id = winningId;
-																xpCalculator.setUserXpStats(snapshot.key,function(xpStat){
-																	//todo: any action that is needed when callbacked
-																});
-																if(gameRef.set(resultGame)){
-																	gameStats.updateUserStatForGameEnd(resultGame.cat_id,resultGame.sub_cat_id,winningId,function(snapp){
-																		connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Game end successfully'}));
-																	});
-																}
-															}
-													});
-											});
-										}else{
-											connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Game already ended'}));
-										}
+									var resultGame = snapshot.val();
+									gameRef.remove();
+									roomRef.remove();
+									if(resultGame.winner_id ===0){
+										var subCatRef = database.child('category').child(resultGame.cat_id).child('subCategory').child(resultGame.sub_cat_id);
+										subCatRef.once('value', function(snapshot) {
+												resultSubCat = snapshot.val();
+												userRef.once('value', function(snapshot) {
+													resultUser = snapshot.val();
+													resultUser.coin = parseInt(resultUser.coin+resultSubCat.winningCoin);
+													resultUser.totalWin = parseInt(resultUser.totalWin+1);
+													resultUser.xp = parseInt(resultUser.xp+resultSubCat.winnerXP-resultSubCat.loserXP);
+													if(userRef.set(resultUser)){
+														resultGame.winner_id = winningId;
+														xpCalculator.setUserXpStats(snapshot.key,function(xpStat){
+															//todo: any action that is needed when callbacked
+														});
+														gameStats.updateUserStatForGameEnd(resultGame.cat_id,resultGame.sub_cat_id,winningId,function(snapp){
+															connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Game end successfully'}));
+														});
+													}
+												});
+										});
+									}else{
+										connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Game already ended'}));
+									}
 								});
 							}else{
 								connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:2,msg:"Access token does not exists"}));
@@ -838,8 +848,12 @@ wsServer.on('request', function(request) {
 								}else{
 									//assign room
 									Matchmaking.assignRoom(userId,catId,subCatId,function(data){
-										matchMakingId = data.roomId;
-										connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Room assigned',data:data}));
+										if(data.error){
+											connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Insufficient coins',data:{}}));
+										}else{
+											matchMakingId = data.roomId;
+											connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Room assigned',data:data}));
+										}
 									});
 								}
 							}else{
