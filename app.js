@@ -106,6 +106,8 @@ wsServer.on('request', function(request) {
 					var serverVersion = 0;
 					var clientVersion = reqM.version;
 					var platform = reqM.platform;
+					console.log('------------------version Check--------------------');
+					console.log(reqM);
 					if(platform === 'android'){
 						serverVersion = 1.0;
 						if(serverVersion !== clientVersion){
@@ -266,11 +268,11 @@ wsServer.on('request', function(request) {
 							});
 						}else{
 							var userRef1 = Firebase.database().ref().child('users').child(guestId);
-							console.log('guestId : '+guestId);
+							//console.log('guestId : '+guestId);
 							userRef1.once('value', function(snapshot) {
 							  var data = snapshot.val();
-							  console.log('Guest user details');
-							  console.log(data);
+							  //console.log('Guest user details');
+							  //console.log(data);
 								if(data){
 									Firebase.auth().createUserWithEmailAndPassword(email, password).then(function(firebaseUser) {
 										//userRef1.remove();
@@ -464,13 +466,13 @@ wsServer.on('request', function(request) {
 											if(currentD <= endD && currentD >= startD){
 												data.offerCoin = giftData.coin;
 												GloUserId =userId;
-												console.log(connection.id);
+												//console.log(connection.id);
 												userRef.child(userId).child('connectionId').set(connection.id);
 												connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Successfully',data:data}));
 											}else{
 												data.offerCoin = 0;
 												GloUserId =userId;
-												console.log(connection.id);
+												//console.log(connection.id);
 												userRef.child(userId).child('connectionId').set(connection.id);
 												connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Successfully',data:data}));
 											}
@@ -481,7 +483,7 @@ wsServer.on('request', function(request) {
 									}else{
 										data.offerCoin = 0;
 										GloUserId =userId;
-										console.log(connection.id);
+										//console.log(connection.id);
 										userRef.child(userId).child('connectionId').set(connection.id);
 										connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Successfully',data:data}));
 									}
