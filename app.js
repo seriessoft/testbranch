@@ -15,7 +15,7 @@ var gameStats = require('./utils/gameStats');
 var app = express();
 var port = process.env.PORT || 3030;
 var wsport = 1337;
-var Khalil = "I Love You Very Much"
+//var Khalil = "I Love You Very Much"
 /* client's firebase credentials changes are also requird in utils/admin.js for admin credential */
 
 var config = {
@@ -91,7 +91,7 @@ wsServer.on('request', function(request) {
 	var GloUserId = false;
 	console.log('connected');
 	console.log(connection.id);
-	console.log(khalil)
+	//console.log(khalil)
 	connection.on('message', function(message) {
 		var reqM={};
 		if (message.type === 'utf8') {
