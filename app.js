@@ -173,23 +173,42 @@ wsServer.on('request', function(request) {
 					}
 					break;
 				case "LOGIN":
+					
 					if(reqM.email && reqM.password){
 						var email = reqM.email;
 						var password = reqM.password;
+						
 						Firebase.auth().signInWithEmailAndPassword(email, password).then(function(firebaseUser) {
+							
+							
+							
 							var userId = firebaseUser.uid;
+						
 							var userRef = Firebase.database().ref().child('users').child(userId);
-							userRef.once('value', function(snapshot) {
-								var data = snapshot.val();
-								GloUserId =userId;
-								if(data){
-									data.userId = userId;
-									userRef.child('connectionId').set(connection.id);
-									connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Successfully registered',data:data}));
-								}else{
-									connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'No data in dataBase'}));
-								}
-							});
+							if (userRef) {
+								userRef.once('value', function(snapshot) {
+								
+									var data = snapshot.val();
+									GloUserId =userId;
+								
+								
+									if(data){
+										data.userId = userId;
+										userRef.child('connectionId').set(connection.id);
+										connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Successfully registered',data:data}));
+									}else{
+										connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'No data in dataBase'}));
+									}
+								
+								
+								
+								
+								});
+							} else {
+								connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'No data in dataBase'}))
+							}
+							
+							
 						}).catch(function(error) {
 							console.log(error);
 							connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'username password does not match.'}));
@@ -198,6 +217,11 @@ wsServer.on('request', function(request) {
 						connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Please send all required fields'}));
 					}
 					break;
+					
+					
+					
+					
+					
 				case "GUEST_LOGIN":
 					var defauldId = new Date().getTime();
 					var accessToken = new Date().getTime();
