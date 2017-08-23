@@ -183,30 +183,33 @@ wsServer.on('request', function(request) {
 							
 							
 							var userId = firebaseUser.uid;
-						
+							
+							
 							var userRef = Firebase.database().ref().child('users').child(userId);
-							if (userRef) {
+							
+							
 								userRef.once('value', function(snapshot) {
+									
+									if (snapshot) {
+										var data = snapshot.val();
+										GloUserId =userId;
 								
-									var data = snapshot.val();
-									GloUserId =userId;
 								
+										if(data){
+											data.userId = userId;
+											userRef.child('connectionId').set(connection.id);
+											connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Successfully registered',data:data}));
+										}else{
+											connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'No data in dataBase'}));
+										}
 								
-									if(data){
-										data.userId = userId;
-										userRef.child('connectionId').set(connection.id);
-										connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Successfully registered',data:data}));
 									}else{
 										connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'No data in dataBase'}));
 									}
 								
 								
-								
-								
 								});
-							} else {
-								connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'No data in dataBase'}))
-							}
+							
 							
 							
 						}).catch(function(error) {
