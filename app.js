@@ -191,6 +191,7 @@ wsServer.on('request', function(request) {
 								userRef.once('value', function(snapshot) {
 									
 									if (snapshot) {
+										console.log('SnapShotIsNotNul' + email);
 										var data = snapshot.val();
 										GloUserId =userId;
 								
