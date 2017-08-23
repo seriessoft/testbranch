@@ -191,7 +191,8 @@ wsServer.on('request', function(request) {
 								userRef.once('value', function(snapshot) {
 									
 									if (snapshot) {
-										console.log('SnapShotIsNotNul' + email);
+										
+										console.log('------------------Seriessoft2--------------------');
 										var data = snapshot.val();
 										GloUserId =userId;
 								
@@ -205,6 +206,7 @@ wsServer.on('request', function(request) {
 										}
 								
 									}else{
+										console.log('------------------Seriessoft3--------------------');
 										connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'No data in dataBase'}));
 									}
 								
@@ -215,9 +217,11 @@ wsServer.on('request', function(request) {
 							
 						}).catch(function(error) {
 							console.log(error);
+							console.log('------------------Seriessoft3--------------------');
 							connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'username password does not match.'}));
 						});
 					}else{
+						console.log('------------------Seriessoft4--------------------');
 						connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Please send all required fields'}));
 					}
 					break;
