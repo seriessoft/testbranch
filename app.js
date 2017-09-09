@@ -173,7 +173,7 @@ wsServer.on('request', function(request) {
 					}
 					break;
 				case "LOGIN":
-					
+					/*
 					if(reqM.email && reqM.password){
 						var email = reqM.email;
 						var password = reqM.password;
@@ -226,6 +226,7 @@ wsServer.on('request', function(request) {
 					}
 					break;
 					
+					*/
 					
 					
 					
