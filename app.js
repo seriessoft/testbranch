@@ -15,7 +15,6 @@ var gameStats = require('./utils/gameStats');
 var app = express();
 var port = process.env.PORT || 3030;
 var wsport = 1337;
-//var Khalil = "I Love You Very Much"
 /* client's firebase credentials changes are also requird in utils/admin.js for admin credential */
 
 var config = {
@@ -29,7 +28,6 @@ var config = {
 /*
 our firebase credential
 Hello there, i am nice
-and i love you
 var config = {
 	apiKey: "AIzaSyBILjsq_QSbE8X-H2tiSxJxX5i1AV139nI",
     authDomain: "monopoly-2ffc6.firebaseapp.com",
@@ -91,7 +89,6 @@ wsServer.on('request', function(request) {
 	var GloUserId = false;
 	console.log('connected');
 	console.log(connection.id);
-	//console.log(khalil)
 	connection.on('message', function(message) {
 		var reqM={};
 		if (message.type === 'utf8') {
@@ -109,7 +106,7 @@ wsServer.on('request', function(request) {
 					var serverVersion = 0;
 					var clientVersion = parseFloat(reqM.version);
 					var platform = reqM.platform;
-					console.log('------------------version Check1--------------------');
+					console.log('------------------version Check--------------------');
 					console.log(reqM);
 					console.log("clientVersion : ", clientVersion);
 					if(platform === 'android'){
@@ -173,64 +170,31 @@ wsServer.on('request', function(request) {
 					}
 					break;
 				case "LOGIN":
-					/*
 					if(reqM.email && reqM.password){
 						var email = reqM.email;
 						var password = reqM.password;
-						
 						Firebase.auth().signInWithEmailAndPassword(email, password).then(function(firebaseUser) {
-							
-							
-							
 							var userId = firebaseUser.uid;
-							
-							
 							var userRef = Firebase.database().ref().child('users').child(userId);
-							
-							
-								userRef.once('value', function(snapshot) {
-									
-									if (snapshot) {
-										
-										console.log('------------------Seriessoft2--------------------');
-										var data = snapshot.val();
-										GloUserId =userId;
-								
-								
-										if(data){
-											data.userId = userId;
-											userRef.child('connectionId').set(connection.id);
-											connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Successfully registered',data:data}));
-										}else{
-											connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'No data in dataBase'}));
-										}
-								
-									}else{
-										console.log('------------------Seriessoft3--------------------');
-										connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'No data in dataBase'}));
-									}
-								
-								
-								});
-							
-							
-							
+							userRef.once('value', function(snapshot) {
+								var data = snapshot.val();
+								GloUserId =userId;
+								if(data){
+									data.userId = userId;
+									userRef.child('connectionId').set(connection.id);
+									connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Successfully registered',data:data}));
+								}else{
+									connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'No data in dataBase'}));
+								}
+							});
 						}).catch(function(error) {
 							console.log(error);
-							console.log('------------------Seriessoft3--------------------');
 							connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'username password does not match.'}));
 						});
 					}else{
-						console.log('------------------Seriessoft4--------------------');
 						connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Please send all required fields'}));
 					}
 					break;
-					
-					*/
-					
-					
-					
-					
 				case "GUEST_LOGIN":
 					var defauldId = new Date().getTime();
 					var accessToken = new Date().getTime();
