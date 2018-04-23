@@ -18,6 +18,9 @@
   ],
   "author": "Ravi S. Singh",
   "license": "ISC",
+  "engines": { 
+   "node": "8.7.0" 
+  },
   "bugs": {
     "url": "https://github.com/IDS-hub/saudideals-server/issues"
   },
