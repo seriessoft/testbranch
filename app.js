@@ -13,7 +13,7 @@ var Hooks = require('./utils/hooks');
 var xpCalculator = require('./utils/xpCalculator');
 var gameStats = require('./utils/gameStats');
 var app = express();
-var port = process.env.PORT || 3030;
+var port = process.env.PORT || 5000;
 var wsport = 1337;
 //var Khalil = "I Love You Very Much"
 /* client's firebase credentials changes are also requird in utils/admin.js for admin credential */
