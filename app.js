@@ -109,7 +109,7 @@ wsServer.on('request', function(request) {
 					var serverVersion = 0;
 					var clientVersion = parseFloat(reqM.version);
 					var platform = reqM.platform;
-					console.log('------------------version Check1--------------------');
+					console.log('------------------version Check122--------------------');
 					console.log(reqM);
 					console.log("clientVersion : ", clientVersion);
 					if(platform === 'android'){
