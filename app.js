@@ -868,12 +868,14 @@ wsServer.on('request', function(request) {
 					}
 					break;
 				case 'MATCH_MAKING':
+					console.log('-------------Match Making in Progress----------');
 					if(reqM.userId && reqM.accessToken && reqM.catId && reqM.subCatId){
 						var userId = reqM.userId;
 						var roomId = reqM.roomId || null;
 						var accessToken = JSON.parse(reqM.accessToken);
 						var catId = reqM.catId;
 						var subCatId = reqM.subCatId;
+						console.log(userId+roomId+accessToken+catId+subCatId);
 						Matchmaking.isValidUser(userId,accessToken,function(result){
 							if(result.success){
 								if(roomId){
@@ -900,10 +902,12 @@ wsServer.on('request', function(request) {
 							}else{
 								//send error : Invalid User
 								connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:2,msg:'Unauthanticated User!'}));
+								console.log('-------------Invalid User----------');
 							}
 						});
 					}else{
 						connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Please send all required fields'}));
+						console.log('-------------Invalid Request----------');
 					}
 
 					break;
