@@ -3,6 +3,7 @@ var moment = require('moment');
 
 //test if git accepts this file
 var isValidRoom = function(roomId,success,error){
+	console.log('----------Inside isValidRoom--------');
 	var roomRef = Firebase.database().ref().child('rooms1').child(roomId);
 	roomRef.once('value').then(function(snapp){
 		if(snapp.exists()){
@@ -14,9 +15,11 @@ var isValidRoom = function(roomId,success,error){
 	.catch(function(err){
 		error({'msg':'room not exists!!'});
 	});
+	console.log('----------Leaving isValidRoom--------');
 };
 
 var assignRoom = function(userId,catId,subCatId,callback){
+	console.log('----------Inside assignRoom--------');
 	var retRoomData ={};
 	lookForAvailableRoom(catId,subCatId,function(data){
 		//console.log('Insert User to available room id : '+roomId);
@@ -59,10 +62,14 @@ var assignRoom = function(userId,catId,subCatId,callback){
 			console.log(err);
 		});
 	});
+		console.log('----------Leaving assignRoom--------');
+
 };
 
 var createRoom = function(catId,subCatId,subCatData,userId,callback){
 	//console.log(subCatData);
+	console.log('----------Inside createRoom--------');
+
 	var roomsRef = Firebase.database().ref().child('rooms1');
 	var roomCatRef = Firebase.database().ref().child('category').child(catId).child('subCategory').child(subCatId);
 	var availableRoomsRef = roomCatRef.child('availableRooms');
@@ -89,6 +96,8 @@ var createRoom = function(catId,subCatId,subCatData,userId,callback){
 		available:true
 	});
 	callback(roomId);
+	console.log('----------Leaving createRoom--------');
+
 };
 
 var addUserToRoom = function(userId,roomId,name,roomData){
