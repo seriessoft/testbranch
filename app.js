@@ -897,6 +897,7 @@ wsServer.on('request', function(request) {
 										}else{
 											matchMakingId = data.roomId;
 											connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Room assigned',data:data}));
+											console.log("assigned room is: " + matchMakingId);
 										}
 									});
 								}
