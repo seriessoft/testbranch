@@ -922,6 +922,7 @@ wsServer.on('request', function(request) {
 						roomRef.once('value').then(function(snap){
 							var roomData = snap.val();
 							var userLength = snap.child('users').numChildren();
+							console.log("Number of children room :" + roomId + " is " + userLength);
 							if(snap.child('users').child(userId).exists()){
 								if(!roomData.started){
 									if(userLength > 1){
