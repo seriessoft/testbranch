@@ -1015,7 +1015,7 @@ wsServer.on('request', function(request) {
 							data.cat1sub6no = cat1sub6no;
 							data.cat1sub7no = cat1sub7no;
 							//connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'success',data:{cat1sub1no:cat1sub1no,cat1sub2no:cat1sub2no,cat1sub3no:cat1sub3no,cat1sub4no:cat1sub4no,cat1sub5no:cat1sub5no,cat1sub6no:cat1sub6no,cat1sub7no:cat1sub7no}}));
-							connection.sendTUF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'success',data:data}));
+							connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'success',data:data}));
 						}).catch(function(err){
 							connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'unavailable data'}));
 						});
