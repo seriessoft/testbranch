@@ -19,12 +19,12 @@ var wsport = 1337;
 /* client's firebase credentials changes are also requird in utils/admin.js for admin credential */
 
 var config = {
-    apiKey: "AIzaSyCj1gTHtLAbAYXAxbxyzMHWRCbKihvzdH8",
-    authDomain: "saudideal-922d4.firebaseapp.com",
-    databaseURL: "https://saudideal-922d4.firebaseio.com",
-    projectId: "saudideal-922d4",
-    storageBucket: "saudideal-922d4.appspot.com",
-    messagingSenderId: "820015895373"
+    apiKey: "AIzaSyDXxCemk6-8G0qnkuw13pBs1wOhLQHYOng",
+    authDomain: "saudideallllzz.firebaseapp.com",
+    databaseURL: "https://saudideallllzz.firebaseio.com",
+    projectId: "saudideallllzz",
+    storageBucket: "saudideallllzz.appspot.com",
+    messagingSenderId: "718568199752"
 };
 /*
 our firebase credential
