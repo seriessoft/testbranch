@@ -987,6 +987,30 @@ wsServer.on('request', function(request) {
 							connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Please send all required fields'}));
 						}
 						break;
+					case "ONLINE_PLAYERS":
+						var rootRef = Firebase.database().ref();
+						var categoryRef = rootRef.child('category').child('1').child('subCategory');
+						var cat1sub1no = 0;
+						var cat1sub2no = 0;
+						var cat1sub3no = 0;
+						var cat1sub4no = 0;
+						var cat1sub5no = 0;
+						var cat1sub6no = 0;
+						var cat1sub7no = 0;
+						categoryRef.once('value').then(function(snap){
+							cat1sub1no = snap.child('1').child('activeRooms').numChildren();
+							cat1sub2no = snap.child('2').child('activeRooms').numChildren();
+							cat1sub3no = snap.child('3').child('activeRooms').numChildren();
+							cat1sub4no = snap.child('4').child('activeRooms').numChildren();
+							cat1sub5no = snap.child('5').child('activeRooms').numChildren();
+							cat1sub6no = snap.child('6').child('activeRooms').numChildren();
+							cat1sub7no = snap.child('7').child('activeRooms').numChildren();
+							console.log(cat1sub1no+" "+cat1sub2no+" "+cat1sub3no+" "+cat1sub4no+" "+cat1sub5no+" "+cat1sub6no+" "+cat1sub7no);
+							connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'success',data:{cat1sub1no:cat1sub1no,cat1sub2no:cat1sub2no,cat1sub3no:cat1sub3no,cat1sub4no:cat1sub4no,cat1sub5no:cat1sub5no,cat1sub6no:cat1sub6no,cat1sub7no:cat1sub7no}}));
+						}).catch(function(err){
+							connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'unavailable data'}));
+						});
+					break;
 
 				default:
 					handler.other(connection,message,function(res){
