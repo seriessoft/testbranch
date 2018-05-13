@@ -1006,7 +1006,16 @@ wsServer.on('request', function(request) {
 							cat1sub6no = snap.child('6').child('activeRooms').numChildren();
 							cat1sub7no = snap.child('7').child('activeRooms').numChildren();
 							console.log(cat1sub1no+" "+cat1sub2no+" "+cat1sub3no+" "+cat1sub4no+" "+cat1sub5no+" "+cat1sub6no+" "+cat1sub7no);
-							connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'success',data:{cat1sub1no:cat1sub1no,cat1sub2no:cat1sub2no,cat1sub3no:cat1sub3no,cat1sub4no:cat1sub4no,cat1sub5no:cat1sub5no,cat1sub6no:cat1sub6no,cat1sub7no:cat1sub7no}}));
+							var data = {};
+							data.cat1sub1no = cat1sub1no;
+							data.cat1sub2no = cat1sub2no;
+							data.cat1sub3no = cat1sub3no;
+							data.cat1sub4no = cat1sub4no;
+							data.cat1sub5no = cat1sub5no;
+							data.cat1sub6no = cat1sub6no;
+							data.cat1sub7no = cat1sub7no;
+							//connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'success',data:{cat1sub1no:cat1sub1no,cat1sub2no:cat1sub2no,cat1sub3no:cat1sub3no,cat1sub4no:cat1sub4no,cat1sub5no:cat1sub5no,cat1sub6no:cat1sub6no,cat1sub7no:cat1sub7no}}));
+							connection.sendTUF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'success',data:data}));
 						}).catch(function(err){
 							connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'unavailable data'}));
 						});
