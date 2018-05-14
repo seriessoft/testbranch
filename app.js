@@ -653,6 +653,8 @@ wsServer.on('request', function(request) {
 								connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:2,msg:"Access token does not exists"}));
 							}
 						});
+						gameRef.remove();
+						roomRef.remove();
 					}else{
 						connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Please send all required fields'}));
 					}
