@@ -86,6 +86,7 @@ var createRoom = function(catId,subCatId,subCatData,userId,callback){
 	};
 	var roomId = roomsRef.push(roomData).key;
 	roomsRef.child(roomId).child('roomId').set(roomId);
+	var activeRoomRef = roomCatRef.child('activeRooms').child(roomId);
 	var usersRef = Firebase.database().ref().child('users').child(userId);
 	usersRef.once('value',function(snapshot){
 		var userData = snapshot.val();
@@ -94,6 +95,9 @@ var createRoom = function(catId,subCatId,subCatData,userId,callback){
 
 	availableRoomsRef.child(roomId).set({
 		available:true
+	});
+	activeRoomRef.set({
+		active:true
 	});
 	callback(roomId);
 	console.log('----------Leaving createRoom--------');
