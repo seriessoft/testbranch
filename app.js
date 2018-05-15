@@ -607,6 +607,8 @@ wsServer.on('request', function(request) {
 					}
 					break;
 				case 'GAME_END':
+					var gRef = "";
+					var rRef = "";
 					if(reqM.winningId && reqM.gameId && reqM.userId && reqM.accessToken && reqM.roomId){
 						var database = Firebase.database().ref();
 						var gameId = reqM.gameId;
@@ -617,6 +619,8 @@ wsServer.on('request', function(request) {
 						var gameRef = database.child('games').child(gameId);
 						var userRef = database.child('users').child(userId);
 						var roomRef = database.child('rooms1').child(roomId);
+						gRef = gameRef;
+						rRef = roomRef;
 						userRef.once('value',function(snapshot){
 							var userDetails = snapshot.val();
 							userRef = database.child('users').child(winningId);
@@ -658,6 +662,8 @@ wsServer.on('request', function(request) {
 					}else{
 						connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Please send all required fields'}));
 					}
+					gRef.remove();
+					rRef.remove();
 					break;
 				case 'IN_APP_OFFER':
 					var inAppOfferRef = Firebase.database().ref().child('inAppOffers');
