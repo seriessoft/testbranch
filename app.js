@@ -620,10 +620,8 @@ wsServer.on('request', function(request) {
 						var gameRef = database.child('games').child(gameId);
 						var userRef = database.child('users').child(userId);
 						var roomRef = database.child('rooms1').child(roomId);
-						var activeRoomRef = roomCatRef.child('activeRooms').child(roomId);
 						gRef = gameRef;
 						rRef = roomRef;
-						activeR = activeRoomRef;
 						userRef.once('value',function(snapshot){
 							var userDetails = snapshot.val();
 							userRef = database.child('users').child(winningId);
@@ -632,13 +630,15 @@ wsServer.on('request', function(request) {
 									var resultGame = snapshot.val();
 									gameRef.remove();
 									roomRef.remove();
-									activeRoomRef.remove();
 									if(resultGame.winner_id ===0){
 										var subCatRef = database.child('category').child(resultGame.cat_id).child('subCategory').child(resultGame.sub_cat_id);
+										var activeRoomRef = subCatRef.child('activeRooms').child(roomId);
+										activeRoomRef.remove();
+										activeR = activeRoomRef;
 										subCatRef.once('value', function(snapshot) {
-												resultSubCat = snapshot.val();
+												var resultSubCat = snapshot.val();
 												userRef.once('value', function(snapshot) {
-													resultUser = snapshot.val();
+													var resultUser = snapshot.val();
 													resultUser.coin = parseInt(resultUser.coin+resultSubCat.winningCoin);
 													resultUser.totalWin = parseInt(resultUser.totalWin+1);
 													resultUser.xp = parseInt(resultUser.xp+resultSubCat.winnerXP-resultSubCat.loserXP);
