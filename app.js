@@ -932,8 +932,6 @@ wsServer.on('request', function(request) {
 						var roomId = reqM.roomId;
 						var rootRef = Firebase.database().ref();
 						var roomRef = rootRef.child('rooms1').child(roomId);
-						var activeRoomRef = roomCatRef.child('activeRooms').child(roomId);
-						activeRoomRef.remove();
 						roomRef.once('value').then(function(snap){
 							var roomData = snap.val();
 							var userLength = snap.child('users').numChildren();
@@ -946,6 +944,7 @@ wsServer.on('request', function(request) {
 									}else{
 										roomRef.remove();
 										rootRef.child('category').child(roomData.catId).child('subCategory').child(roomData.subCatId).child('availableRooms').remove();
+										rootRef.child('category').child(roomData.catId).child('subCategory').child(roomData.subCatId).child('activeRooms').child(roomId).remove();
 										connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Room remove successfully.'}));
 									}
 								}else{
