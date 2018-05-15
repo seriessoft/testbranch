@@ -932,6 +932,8 @@ wsServer.on('request', function(request) {
 						var roomId = reqM.roomId;
 						var rootRef = Firebase.database().ref();
 						var roomRef = rootRef.child('rooms1').child(roomId);
+						var activeRoomRef = roomCatRef.child('activeRooms').child(roomId);
+						activeRoomRef.remove();
 						roomRef.once('value').then(function(snap){
 							var roomData = snap.val();
 							var userLength = snap.child('users').numChildren();
