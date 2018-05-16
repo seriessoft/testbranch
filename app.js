@@ -610,6 +610,7 @@ wsServer.on('request', function(request) {
 					var gRef = "";
 					var rRef = "";
 					var activeR = "";
+					console.log('-------------------inside GAME END----------------');
 					if(reqM.winningId && reqM.gameId && reqM.userId && reqM.accessToken && reqM.roomId){
 						var database = Firebase.database().ref();
 						var gameId = reqM.gameId;
@@ -620,17 +621,20 @@ wsServer.on('request', function(request) {
 						var gameRef = database.child('games').child(gameId);
 						var userRef = database.child('users').child(userId);
 						var roomRef = database.child('rooms1').child(roomId);
+						console.log('-------------------inside GAME END----2------------');
 						gRef = gameRef;
 						rRef = roomRef;
 						userRef.once('value',function(snapshot){
 							var userDetails = snapshot.val();
 							userRef = database.child('users').child(winningId);
 							if(userDetails.accessToken === accessToken){
+								console.log('-------------------inside GAME END----3------------');
 								gameRef.once('value', function(snapshot) {
 									var resultGame = snapshot.val();
 									gameRef.remove();
 									roomRef.remove();
 									if(resultGame.winner_id ===0){
+										console.log('-------------------inside GAME END----4------------');
 										var subCatRef = database.child('category').child(resultGame.cat_id).child('subCategory').child(resultGame.sub_cat_id);
 										var activeRoomRef = subCatRef.child('activeRooms').child(roomId);
 										activeRoomRef.remove();
@@ -669,6 +673,7 @@ wsServer.on('request', function(request) {
 					gRef.remove();
 					rRef.remove();
 					activeR.remove();
+					console.log('-------------------inside GAME END----5------------');
 					break;
 				case 'IN_APP_OFFER':
 					var inAppOfferRef = Firebase.database().ref().child('inAppOffers');
