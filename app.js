@@ -1053,7 +1053,7 @@ wsServer.on('request', function(request) {
 					else if(reqM.actiontype == "LIST" && reqM.uid){
 						Friends.findFriends, function(data){
 							connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'success',data:data}));
-						});
+						};
 					}
 
 				default:
