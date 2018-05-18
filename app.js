@@ -12,6 +12,7 @@ var AppConfig = require('./utils/config');
 var Hooks = require('./utils/hooks');
 var xpCalculator = require('./utils/xpCalculator');
 var gameStats = require('./utils/gameStats');
+var Friends = require('./utils/friends');
 var app = express();
 var port = process.env.PORT || 5000;
 var wsport = 1337;
@@ -1038,7 +1039,22 @@ wsServer.on('request', function(request) {
 						}).catch(function(err){
 							connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'unavailable data'}));
 						});
-					break;
+						break;
+					
+				case "FRIENDS":
+					if(reqM.action == "ADD" && reqM.uid && reqM.newfriend){
+						Friends.addPlayerToDatabase(reqM.uid, reqM.newFriend);
+						connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'successfully added'}));
+					}
+					else if(reqM.action == "REMOVE" && reqM.uid && reqM.friend){
+						Friends.removePlayerFromDatabase(reqM.uid, reqM.friend);
+						connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'successfully removed'}));
+					}
+					else if(reqM.action == "LIST" && reqM.uid){
+						Friends.findFriends, function(data){
+							connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'success',data:data}));
+						});
+					}
 
 				default:
 					handler.other(connection,message,function(res){
