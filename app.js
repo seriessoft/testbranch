@@ -1042,15 +1042,15 @@ wsServer.on('request', function(request) {
 						break;
 					
 				case "FRIENDS":
-					if(reqM.action == "ADD" && reqM.uid && reqM.newfriend){
+					if(reqM.actiontype == "ADD" && reqM.uid && reqM.newfriend){
 						Friends.addPlayerToDatabase(reqM.uid, reqM.newFriend);
 						connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'successfully added'}));
 					}
-					else if(reqM.action == "REMOVE" && reqM.uid && reqM.friend){
+					else if(reqM.actiontype == "REMOVE" && reqM.uid && reqM.friend){
 						Friends.removePlayerFromDatabase(reqM.uid, reqM.friend);
 						connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'successfully removed'}));
 					}
-					else if(reqM.action == "LIST" && reqM.uid){
+					else if(reqM.actiontype == "LIST" && reqM.uid){
 						Friends.findFriends, function(data){
 							connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'success',data:data}));
 						});
