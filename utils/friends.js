@@ -7,14 +7,14 @@ var addPlayerToDatabase = function(uid, newFriend){
   var playerRef = Firebase.database().ref().child('users').child(uid);
   playerRef.child('friends').child(newFriend).set(newFriend);
   console.log('--------------leaving addplayertodatabase------------');
-}
+};
 
 var removePlayerFromDatabase = function(uid, friend){
   
   var playerRef = Firebase.database().ref().child('users').child(uid);
   playerRef.child('friends').child(friend).remove();
   
-}
+};
 
 var findFrineds = function(uid, callback){
   
@@ -24,4 +24,4 @@ var findFrineds = function(uid, callback){
     callback = friendslist;
   });
   
-}
+};
