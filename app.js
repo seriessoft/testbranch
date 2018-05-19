@@ -1063,7 +1063,7 @@ wsServer.on('request', function(request) {
 					else if(reqM.actiontype == "LIST"){
 						var uid = reqM.uid;
 						var playerRef = Firebase.database().ref().child('users').child(uid);
-  						playerRef.child('users').once('value').then( function(snap){
+  						playerRef.child('friends').once('value').then( function(snap){
     							var data = snap;
 							console.log(data);
     							connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'success',data:data}));
