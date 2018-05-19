@@ -1042,10 +1042,12 @@ wsServer.on('request', function(request) {
 						break;
 					
 				case "FRIENDS":
+					var uid = reqM.uid;
+					var friend = reqM.newFriend;
 					console.log(reqM.actiontype + " " + reqM.uid + " " +reqM.newFriend);
 					if(reqM.actiontype === "ADD"){
 						console.log('1'+reqM);
-						Friends.addPlayerToDatabase(reqM.uid, reqM.newFriend);
+						Friends.addPlayerToDatabase(uid, friend);
 						console.log('1'+reqM);
 						connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'successfully added'}));
 					}
