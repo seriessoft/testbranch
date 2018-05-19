@@ -1043,7 +1043,7 @@ wsServer.on('request', function(request) {
 					
 				case "FRIENDS":
 					console.log(reqM.actiontype + " " + reqM.uid + " " +reqM.newFriend);
-					if(reqM.actiontype == "ADD" && reqM.uid && reqM.newfriend){
+					if((reqM.actiontype === "ADD") && reqM.uid && reqM.newfriend){
 						console.log('1'+reqM);
 						Friends.addPlayerToDatabase(reqM.uid, reqM.newFriend);
 						console.log('1'+reqM);
