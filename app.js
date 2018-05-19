@@ -1047,7 +1047,8 @@ wsServer.on('request', function(request) {
 					console.log(reqM.actiontype + " " + reqM.uid + " " +reqM.newFriend);
 					if(reqM.actiontype === "ADD"){
 						console.log('1'+reqM);
-						Friends.addPlayerToDatabase(uid, friend);
+						var playerRef = Firebase.database().ref().child('users').child(uid);
+  						playerRef.child('friends').child(friend).set(friend);
 						console.log('1'+reqM);
 						connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'successfully added'}));
 					}
