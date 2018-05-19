@@ -3,10 +3,10 @@ var moment = require('moment');
 
 
 var addPlayerToDatabase = function(uid, newFriend){
-  
+  console.log('--------------Inside addplayertodatabase------------');
   var playerRef = Firebase.database().ref().child('users').child(uid);
   playerRef.child('friends').child(newFriend).set(newFriend);
-  
+  console.log('--------------leaving addplayertodatabase------------');
 }
 
 var removePlayerFromDatabase = function(uid, friend){
