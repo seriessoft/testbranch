@@ -1057,6 +1057,7 @@ wsServer.on('request', function(request) {
 							connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'success',data:data}));
 						};
 					}
+					break;
 
 				default:
 					handler.other(connection,message,function(res){
