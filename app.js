@@ -1042,24 +1042,33 @@ wsServer.on('request', function(request) {
 						break;
 					
 				case "FRIENDS":
-					var uid = reqM.uid;
-					var friend = reqM.newFriend;
+					
 					console.log(reqM.actiontype + " " + reqM.uid + " " +reqM.newFriend);
 					if(reqM.actiontype === "ADD"){
+						var uid = reqM.uid;
+						var friend = reqM.newFriend;
 						console.log('1'+reqM);
 						var playerRef = Firebase.database().ref().child('users').child(uid);
   						playerRef.child('friends').child(friend).set(friend);
 						console.log('1'+reqM);
 						connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'successfully added'}));
 					}
-					else if(reqM.actiontype == "REMOVE" && reqM.uid && reqM.friend){
-						Friends.removePlayerFromDatabase(reqM.uid, reqM.friend);
+					else if(reqM.actiontype == "REMOVE"){
+						var uid = reqM.uid;
+						var friend = reqM.friend;
+						var playerRef = Firebase.database().ref().child('users').child(uid);
+  						playerRef.child('friends').child(friend).remove();;
 						connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'successfully removed'}));
 					}
-					else if(reqM.actiontype == "LIST" && reqM.uid){
-						Friends.findFriends, function(data){
-							connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'success',data:data}));
-						};
+					else if(reqM.actiontype == "LIST"){
+						var uid = reqM.uid;
+						var playerRef = Firebase.database().ref().child('users').child(uid);
+  						playerRef.child('users').once('value').then( function(snap){
+    							var data = snap;
+							console.log(data);
+    							connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'success',data:data}));
+  						});
+						
 					}
 					break;
 
