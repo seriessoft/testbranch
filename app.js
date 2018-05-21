@@ -1064,7 +1064,7 @@ wsServer.on('request', function(request) {
 						var uid = reqM.uid;
 						var playerRef = Firebase.database().ref().child('users').child(uid);
   						playerRef.child('friends').once('value').then( function(snap){
-    							var data = snap;
+    							var data = snap.val();
 							console.log(data);
     							connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'success',data:data}));
   						});
