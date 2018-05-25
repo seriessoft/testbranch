@@ -905,7 +905,9 @@ wsServer.on('request', function(request) {
 										matchMakingId = roomId;
 										var userRef = Firebase.database().ref().child('users').child(userId);
 										userRef.once('value').then(function(snap){
+											console.log('---------going to add friend to room--------');
 											MatchMaking.addUserToFriendRoom(userId,roomId,snap.val().name);
+											console.log('---------out of adding friend to room --------');
 										};
 										
 										connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Room is valid',data:data}));
