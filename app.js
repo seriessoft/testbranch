@@ -903,6 +903,11 @@ wsServer.on('request', function(request) {
 									Matchmaking.isValidRoom(roomId,function(data){
 										//respond with data
 										matchMakingId = roomId;
+										var userRef = Firebase.database().ref().child('users').child(userId);
+										userRef.once('value').then(function(snap){
+											MatchMaking.addUserToFriendRoom(userId,roomId,snap.val().name);
+										};
+										
 										connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Room is valid',data:data}));
 									},function(err){
 										//respond with data
