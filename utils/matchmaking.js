@@ -320,5 +320,6 @@ module.exports = {
 	assignRoom:assignRoom,
 	getRoomDetails:getRoomDetails,
 	getSubCatDetails:getSubCatDetails,
-	testMatchMaking : testMatchMaking
+	testMatchMaking : testMatchMaking,
+	addUserToFriendRoom : addUserToFriendRoom
 };
