@@ -910,7 +910,7 @@ wsServer.on('request', function(request) {
 									});
 								}else{
 									//assign room
-									Matchmaking.assignRoom(userId,catId,subCatId,function(data){
+									Matchmaking.assignRoom(userId,catId,subCatId,reqM.friendsMatch,function(data){
 										if(data.error){
 											connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Insufficient coins',data:{}}));
 										}else{
