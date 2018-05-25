@@ -909,6 +909,8 @@ wsServer.on('request', function(request) {
 											console.log(userId+' '+roomId+' '+snap.val().name);
 											Matchmaking.addUserToFriendRoom(userId,roomId,snap.val().name);
 											console.log('---------out of adding friend to room --------');
+										}).catch(function(err){
+											console.log(err);
 										});
 										
 										connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Room is valid',data:data}));
