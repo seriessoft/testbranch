@@ -906,6 +906,7 @@ wsServer.on('request', function(request) {
 										var userRef = Firebase.database().ref().child('users').child(userId);
 										userRef.once('value').then(function(snap){
 											console.log('---------going to add friend to room--------');
+											console.log(userId+' '+roomId+' '+snap.val().name);
 											Matchmaking.addUserToFriendRoom(userId,roomId,snap.val().name);
 											console.log('---------out of adding friend to room --------');
 										});
