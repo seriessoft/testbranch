@@ -18,7 +18,7 @@ var isValidRoom = function(roomId,success,error){
 	console.log('----------Leaving isValidRoom--------');
 };
 
-var assignRoom = function(userId,catId,subCatId,callback){
+var assignRoom = function(userId,catId,subCatId,friendMatch,callback){
 	console.log('----------Inside assignRoom--------');
 	var retRoomData ={};
 	lookForAvailableRoom(catId,subCatId,function(data){
@@ -48,7 +48,7 @@ var assignRoom = function(userId,catId,subCatId,callback){
 		userCoinRef.once('value').then(function(snap){
 			var userCoin = snap.val();
 			if(userCoin >= subcatData.fees){
-				createRoom(catId,subCatId,subcatData,userId,function(roomId){
+				createRoom(catId,subCatId,subcatData,userId,friendMatch,function(roomId){
 					var roomRef = Firebase.database().ref().child('rooms1').child(roomId);
 					roomRef.once('value').then(function(roomSnapp){
 						retRoomData = roomSnapp.val();
