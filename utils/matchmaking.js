@@ -152,6 +152,40 @@ var addUserToRoom = function(userId,roomId,name,roomData){
 
 };
 
+
+var addUserToFriendRoom = function(userId,roomId,name,roomData){
+	var roomRef = Firebase.database().ref().child('rooms1').child(roomId);
+
+	roomRef.child('users').child(userId).set({
+		playing:true,
+		isActive:true,
+		name:name
+	});
+
+	roomRef.once('value').then(function(roomSnapp){
+		var roomSnappVal = roomSnapp.val();
+		var maxAllowed = 5;
+		var totalUser = roomSnapp.child('users').numChildren();
+		var users = roomSnapp.child('users');
+
+		roomRef.once('value',function(rs){
+			totalUser = rs.child('users').numChildren();
+			roomRef.child('totalUsers').set(totalUser);
+			if(totalUser>=maxAllowed){
+				roomRef.child('roomFull').set(true);
+				roomRef.child('started').set(true);
+				var roomCatRef = Firebase.database().ref().child('category').child(roomSnappVal.catId).child('subCategory').child(roomSnappVal.subCatId);
+			}else{
+				roomRef.child('roomFull').set(false);
+				roomRef.child('started').set(false);
+			}
+		});
+
+	});
+
+};
+
+
 var lookForAvailableRoom = function(catId,subCatId,fn_available,fn_notAvailable){
 	//console.log('Looking for available room');
 	var roomCatRef = Firebase.database().ref().child('category').child(catId).child('subCategory').child(subCatId);
