@@ -66,7 +66,7 @@ var assignRoom = function(userId,catId,subCatId,callback){
 
 };
 
-var createRoom = function(catId,subCatId,subCatData,userId,callback){
+var createRoom = function(catId,subCatId,subCatData,userId,friendMatch,callback){
 	//console.log(subCatData);
 	console.log('----------Inside createRoom--------');
 
@@ -92,10 +92,11 @@ var createRoom = function(catId,subCatId,subCatData,userId,callback){
 		var userData = snapshot.val();
 		addUserToRoom(userId,roomId,userData.name);
 	});
-
-	availableRoomsRef.child(roomId).set({
-		available:true
-	});
+	if(!friendMatch){
+		availableRoomsRef.child(roomId).set({
+			available:true
+		});
+	}
 	activeRoomRef.set({
 		active:true
 	});
