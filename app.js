@@ -946,6 +946,7 @@ wsServer.on('request', function(request) {
 					if(reqM.userId && reqM.roomId){
 						var userId = reqM.userId;
 						var roomId = reqM.roomId;
+						var isRoomOwner = reqM.isRoomOwner;
 						var rootRef = Firebase.database().ref();
 						var roomRef = rootRef.child('rooms1').child(roomId);
 						roomRef.once('value').then(function(snap){
@@ -953,15 +954,35 @@ wsServer.on('request', function(request) {
 							var userLength = snap.child('users').numChildren();
 							if(snap.child('users').child(userId).exists()){
 								if(!roomData.started){
-									if(userLength > 1){
-										roomRef.child('users').child(userId).remove();
-										roomRef.child('totalUsers').set(roomData.totalUsers-1);
-										connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Room remove successfully.'}));
-									}else{
+									if(isRoomOwner){
+										Object.keys(roomData.users).forEach(function(key) {
+											if(key != GloUserId){
+											var userRef = rootRef.child('users').child(key);
+											userRef.once('value').then(function(snap){
+												console.log(snap.val());
+												messageSendToUser(snap.val().connectionId,{'type':'OWNER_CANCELLED',"userId":GloUserId});
+											}).catch(function(err){
+												console.log(err);
+											});
+												console.log('Other User : ' + key);
+											}else{
+												console.log('Current user :' + GloUserId);
+											}
+				    						});
 										roomRef.remove();
-										rootRef.child('category').child(roomData.catId).child('subCategory').child(roomData.subCatId).child('availableRooms').remove();
 										rootRef.child('category').child(roomData.catId).child('subCategory').child(roomData.subCatId).child('activeRooms').child(roomId).remove();
-										connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Room remove successfully.'}));
+										connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Room Removed successfully'}));
+									}else{
+										if(userLength > 1){
+											roomRef.child('users').child(userId).remove();
+											roomRef.child('totalUsers').set(roomData.totalUsers-1);
+											connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Room remove successfully.'}));
+										}else{
+											roomRef.remove();
+											rootRef.child('category').child(roomData.catId).child('subCategory').child(roomData.subCatId).child('availableRooms').remove();
+											rootRef.child('category').child(roomData.catId).child('subCategory').child(roomData.subCatId).child('activeRooms').child(roomId).remove();
+											connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Room remove successfully.'}));
+										}
 									}
 								}else{
 									connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Game start'}));
