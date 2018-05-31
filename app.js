@@ -960,7 +960,7 @@ wsServer.on('request', function(request) {
 											var userRef = rootRef.child('users').child(key);
 											userRef.once('value').then(function(snap){
 												console.log(snap.val());
-												messageSendToUser(snap.val().connectionId,{'type':'OWNER_CANCELLED',"userId":GloUserId});
+												messageSendToUser(snap.val().connectionId,{'type':'OWNER_CANCELLED','userId':roomId});
 											}).catch(function(err){
 												console.log(err);
 											});
