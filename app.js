@@ -551,9 +551,11 @@ wsServer.on('request', function(request) {
 						var subCatRef = Firebase.database().ref().child('category').child(catId).child('subCategory').child(subCatId);
 						var userCheckAccessToken = userRef.child(userId);
 						userCheckAccessToken.once('value',function(snapshot){
+							console.log('access Token exists');
 							var userDetails = snapshot.val();
 							var userAccessToken = userDetails.accessToken;
 							if(userAccessToken === accessToken){
+								console.log('Accesstoken matches');
 								subCatRef.once('value', function(snapshot) {
 								  result = snapshot.val();
 									if(result){
@@ -594,16 +596,20 @@ wsServer.on('request', function(request) {
 											});
 										});
 										var gameId = gameRef.push(data).key;
+										console.log(gameId+' game is created');
 										connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:0,msg:'Success',data:{gameId:gameId}}));
 									}else{
+										console.log('cat and subcat dont exist');
 										connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Category and SubCategory does not exsits'}));
 									}
 								});
 							}else{
+								console.log('Access Token dont exist');
 								connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:2,msg:'Access token does not exists'}));
 							}
 						});
 					}else{
+						console.log('data missing');
 						connection.sendUTF(JSON.stringify({calltoken:calltoken,errorcode:1,msg:'Please send all required fields'}));
 					}
 					break;
